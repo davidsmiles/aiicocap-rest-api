@@ -12,6 +12,12 @@ api = Api(app)
 # load_dotenv(".env")
 app.config.from_pyfile("config.py")
 
+
+@app.route('/')
+def index():
+    return {"message": "welcome to the rest api"}
+
+
 # add all resources here
 api.add_resource(User, '/user/<int:user_id>')
 api.add_resource(UserRegister, '/signup')
