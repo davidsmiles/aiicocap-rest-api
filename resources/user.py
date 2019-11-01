@@ -1,6 +1,7 @@
 from flask import request, jsonify
 from flask_restful import Resource
 from werkzeug.security import safe_str_cmp
+from flask_jwt_extended import *
 
 from libs.strings import gettext
 from models.user import UserModel
@@ -20,7 +21,11 @@ class User(Resource):
 
 class UserRegister(Resource):
     def post(self):
-        user = user_schema.load(request.get_json())
+        payload = user_schema.load(request.get_json())
+        user = UserModel.find_by_email(payload.email)
+        if user:
+            return {"message": gettext("user_email_exists")}
+
         user.save_to_db()
         return jsonify(user_schema.dump(user))
 
@@ -31,11 +36,8 @@ class UserLogin(Resource):
         user_payload = user_schema.load(request.get_json(), partial=("firstname", "lastname"))
         user = UserModel.find_by_email(user_payload.email)
         if user and safe_str_cmp(user.email, user_payload.email):
-            """
             access_token = create_access_token(identity=user.email, fresh=True)
             refresh_token = create_refresh_token(identity=user.email)
 
-            return jsonify(access_token, refresh_token)
-            """
-            return {"message": gettext("user_logged_in")}
+            return jsonify(access_token=access_token, refresh_token=refresh_token)
         return {"message": gettext("user_invalid_credentials")}
