@@ -26,9 +26,9 @@ class UserRegister(Resource):
         if user:
             return {"message": gettext("user_email_exists")}
 
-        user.save_to_db()
+        payload.save_to_db()
         UserModel.send_mail()
-        return jsonify(user_schema.dump(user))
+        return jsonify(user_schema.dump(payload))
 
 
 class UserLogin(Resource):
