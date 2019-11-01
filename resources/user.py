@@ -27,6 +27,7 @@ class UserRegister(Resource):
             return {"message": gettext("user_email_exists")}
 
         user.save_to_db()
+        user.send_mail()
         return jsonify(user_schema.dump(user))
 
 
