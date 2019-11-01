@@ -21,7 +21,8 @@ class UserModel(db.Model):
     def find_by_id(cls, _id: int):
         return cls.query.filter_by(id=_id).first()
 
-    def send_mail(self):
+    @classmethod
+    def send_mail(cls):
         msg = Message("SignUp Confirmation")
         msg.recipients = ["ugberodavid@gmail.com"]
         msg.body = "Testing Testing Testing"
