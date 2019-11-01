@@ -27,7 +27,7 @@ class UserRegister(Resource):
             return {"message": gettext("user_email_exists")}
 
         payload.save_to_db()
-        UserModel.send_mail()
+        # UserModel.send_mail()
         return jsonify(user_schema.dump(payload))
 
 
