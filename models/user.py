@@ -1,4 +1,7 @@
+from flask_mail import Message
+
 from db import db
+from mail import mail
 
 
 class UserModel(db.Model):
@@ -17,6 +20,12 @@ class UserModel(db.Model):
     @classmethod
     def find_by_id(cls, _id: int):
         return cls.query.filter_by(id=_id).first()
+
+    def send_mail(self):
+        msg = Message("SignUp Confirmation")
+        msg.recipients = ["ugberodavid@gmail.com"]
+        msg.body = "Testing Testing Testing"
+        mail.send(msg)
 
     def save_to_db(self):
         db.session.add(self)

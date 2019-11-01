@@ -39,4 +39,8 @@ if __name__ == '__main__':
     from ma import ma
     ma.init_app(app)
 
+    # init flask-mail instance
+    from mail import mail
+    mail.init_app(app)
+
     app.run()

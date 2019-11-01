@@ -13,6 +13,7 @@ flask-sqlalchemy = "*"
 python-dotenv = "*"
 marshmallow-sqlalchemy = "*"
 flask-jwt-extended = "*"
+flask-mail = "*"
 
 [requires]
 python_version = "3.8"
