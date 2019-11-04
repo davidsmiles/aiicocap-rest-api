@@ -24,7 +24,7 @@ class UserRegister(Resource):
         payload = user_schema.load(request.get_json())
         user = UserModel.find_by_email(payload.email)
         if user:
-            return {"message": gettext("user_email_exists")}
+            return {"message": gettext("user_email_exists")}, 409
 
         payload.save_to_db()
         # UserModel.send_mail()
