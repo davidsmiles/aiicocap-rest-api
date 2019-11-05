@@ -40,5 +40,5 @@ class UserLogin(Resource):
             access_token = create_access_token(identity=user.email, fresh=True)
             refresh_token = create_refresh_token(identity=user.email)
 
-            return jsonify(access_token=access_token, refresh_token=refresh_token)
+            return jsonify(access_token=access_token, refresh_token=refresh_token, logged_in_user=user_schema.dump(user))
         return {"message": gettext("user_invalid_credentials")}
