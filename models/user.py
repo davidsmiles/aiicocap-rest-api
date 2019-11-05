@@ -11,6 +11,7 @@ class UserModel(db.Model):
     firstname = db.Column(db.String(40), nullable=False)
     lastname = db.Column(db.String(40), nullable=False)
     email = db.Column(db.String(40), unique=True, nullable=False)
+    phone = db.Column(db.String(40), unique=True, nullable=False)
     password = db.Column(db.String(40), nullable=False)
 
     @classmethod
@@ -20,6 +21,10 @@ class UserModel(db.Model):
     @classmethod
     def find_by_id(cls, _id: int):
         return cls.query.filter_by(id=_id).first()
+
+    @classmethod
+    def find_by_phone(cls, phone: str):
+        return cls.query.filter_by(phone=phone).first()
 
     @classmethod
     def send_mail(cls):
