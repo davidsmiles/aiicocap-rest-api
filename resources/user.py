@@ -36,7 +36,7 @@ class UserLogin(Resource):
     def post(cls):
         user_payload = user_schema.load(request.get_json(), partial=("firstname", "lastname"))
         user = UserModel.find_by_email(user_payload.email)
-        if user and safe_str_cmp(user.email, user_payload.email):
+        if user and safe_str_cmp(user.password, user_payload.password):
             access_token = create_access_token(identity=user.email, fresh=True)
             refresh_token = create_refresh_token(identity=user.email)
 
